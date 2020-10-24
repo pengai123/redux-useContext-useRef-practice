@@ -7,10 +7,10 @@ export default class Counter3 extends Component {
 			<counterContext.Consumer>
 				{context => (
 					<div>
-						<p>
-							Counter: {context.counter}
-						</p>
 						<button onClick={context.handleIncrement}>+</button>
+						<span className="counter">
+							Counter: {context.counter}
+						</span>
 						<button onClick={context.handleDecrement}>-</button>
 					</div>
 				)}

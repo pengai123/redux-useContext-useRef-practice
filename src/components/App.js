@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { useSelector, useDispatch } from "react-redux";
@@ -16,16 +16,15 @@ function App() {
 	const dispatch = useDispatch();
 	// const state = useSelector(state => state)
 	const renderCounter = useRef(0)
-	const btnFocus = useRef()
+	const inputFocus = useRef()
+	const [messageInput, setMessageInput] = useState("")
 
 	useEffect(() => {
-		btnFocus.current.focus();
+		inputFocus.current.focus();
 	}, [])
 
 	useEffect(() => {
 		renderCounter.current = renderCounter.current + 1;
-		console.log('renderCounter:', renderCounter)
-		console.log('btnFocus:', btnFocus)
 	})
 	// let storeState = store.getState(); 
 	// console.log('storeState from app.js:', storeState)
@@ -52,16 +51,18 @@ function App() {
 		}
 	}
 
-	const handleMsg = e => {
+	const handleMsgUpdate = e => {
 		e.preventDefault();
-
-		dispatch(updateMsg("!"))
+		if (messageInput) {
+			dispatch(updateMsg(messageInput))
+			setMessageInput("")
+		}
 
 	}
 
 	const handleIncrement = e => {
 		e.preventDefault();
-		dispatch(increment(5))
+		dispatch(increment(3))
 	}
 
 	const handleDecrement = e => {
@@ -69,32 +70,38 @@ function App() {
 		dispatch(decrement())
 	}
 
+	const handleEnter = e => {
+		console.log("key pentered: ", e.key)
+		if (e.key === "Enter" && messageInput) {
+			dispatch(updateMsg(messageInput))
+			setMessageInput("")
+		}
+	}
 	return (
 		<div className="App">
 			<div className="App-header">
 				<div>
 					<img src={logo} className="App-logo" alt="logo" />
-					<h3>Counter 2 with Redux</h3>
-					<p>
-						Counter: {counter}
-					</p>
+					<h3>Counter 1 with Redux</h3>
 					<button onClick={handleIncrement}>+</button>
+					<span className="counter">
+						Counter: {counter}
+					</span>
 					<button onClick={handleDecrement}>-</button>
 				</div>
-				<p>
-					Message: {message}
-				</p>
-				<button onClick={handleMsg}>UPDATE</button>
-				<h3>useRef Practice</h3>
-				<div>render counter: {renderCounter.current}</div>
-				<input ref={btnFocus} />
-
 				<counterContext.Provider value={{ counter, handleIncrement, handleDecrement }}>
 					<h3>Counter 2 with useContext</h3>
 					<Counter2 />
 					<h3>Counter 3 with Context class style</h3>
 					<Counter3 />
 				</counterContext.Provider>
+				<h3>Update message with Redux: {message}</h3>
+				<div>
+					<input ref={inputFocus} value={messageInput} onChange={(e) => setMessageInput(e.target.value)} onKeyPress={handleEnter} />
+					<button onClick={handleMsgUpdate}>UPDATE</button>
+				</div>
+				<h3>useRef Practice</h3>
+				<div>render counter: {renderCounter.current}</div>
 			</div>
 		</div>
 	);
