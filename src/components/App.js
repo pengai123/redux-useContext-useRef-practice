@@ -2,7 +2,10 @@ import React, { useRef, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { useSelector, useDispatch } from "react-redux";
+
+// build another counter with useContext
 import Counter2 from "./Counter2"
+import Counter3 from "./Counter3"
 
 export const counterContext = React.createContext()
 
@@ -68,26 +71,31 @@ function App() {
 
 	return (
 		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<h3>Counter 2 with Redux</h3>
-				<p>
-					Counter: {counter}
-				</p>
-				<button onClick={handleIncrement}>+</button>
-				<button onClick={handleDecrement}>-</button>
+			<div className="App-header">
+				<div>
+					<img src={logo} className="App-logo" alt="logo" />
+					<h3>Counter 2 with Redux</h3>
+					<p>
+						Counter: {counter}
+					</p>
+					<button onClick={handleIncrement}>+</button>
+					<button onClick={handleDecrement}>-</button>
+				</div>
 				<p>
 					Message: {message}
 				</p>
 				<button onClick={handleMsg}>UPDATE</button>
 				<h3>useRef Practice</h3>
-				<p>render counter: {renderCounter.current}</p>
+				<div>render counter: {renderCounter.current}</div>
 				<input ref={btnFocus} />
-				<h3>Counter 2 with useContext</h3>
-				<counterContext.Provider value={{counter, handleIncrement, handleDecrement}}>
+
+				<counterContext.Provider value={{ counter, handleIncrement, handleDecrement }}>
+					<h3>Counter 2 with useContext</h3>
 					<Counter2 />
+					<h3>Counter 3 with Context class style</h3>
+					<Counter3 />
 				</counterContext.Provider>
-			</header>
+			</div>
 		</div>
 	);
 }

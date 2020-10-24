@@ -5,14 +5,18 @@
 .App-logo {
 	/* height: 40vmin; */
 	height: 10vmin;
-  pointer-events: none;
+	pointer-events: none;
+	animation-name: App-logo-spin;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 
 .App-header {
   background-color: #282c34;
@@ -35,5 +39,5 @@
   }
   to {
     transform: rotate(360deg);
-  }
+	}
 }
