@@ -14,17 +14,16 @@ function App() {
 	const counter = useSelector(state => state.counter);
 	const message = useSelector(state => state.message)
 	const dispatch = useDispatch();
-	// const state = useSelector(state => state)
-	const renderCounter = useRef(0)
-	const inputFocus = useRef()
+	const renderCountRef = useRef(0)
+	const inputRef = useRef()
 	const [messageInput, setMessageInput] = useState("")
 
 	useEffect(() => {
-		inputFocus.current.focus();
+		inputRef.current.focus();
 	}, [])
 
 	useEffect(() => {
-		renderCounter.current = renderCounter.current + 1;
+		renderCountRef.current = renderCountRef.current + 1;
 	})
 	// let storeState = store.getState(); 
 	// console.log('storeState from app.js:', storeState)
@@ -62,7 +61,7 @@ function App() {
 
 	const handleIncrement = e => {
 		e.preventDefault();
-		dispatch(increment(3))
+		dispatch(increment(5))
 	}
 
 	const handleDecrement = e => {
@@ -70,7 +69,7 @@ function App() {
 		dispatch(decrement())
 	}
 
-	const handleEnter = e => {
+	const handleKeyPress = e => {
 		console.log("key pentered: ", e.key)
 		if (e.key === "Enter" && messageInput) {
 			dispatch(updateMsg(messageInput))
@@ -97,11 +96,14 @@ function App() {
 				</counterContext.Provider>
 				<h3>Update message with Redux: {message}</h3>
 				<div>
-					<input ref={inputFocus} value={messageInput} onChange={(e) => setMessageInput(e.target.value)} onKeyPress={handleEnter} />
+					<input ref={inputRef} value={messageInput} 
+					onChange={(e) => setMessageInput(e.target.value)} 
+					onKeyPress={handleKeyPress}
+					placeholder="Enter New Message..." />
 					<button onClick={handleMsgUpdate}>UPDATE</button>
 				</div>
 				<h3>useRef Practice</h3>
-				<div>render counter: {renderCounter.current}</div>
+				<div>render counter: {renderCountRef.current}</div>
 			</div>
 		</div>
 	);
