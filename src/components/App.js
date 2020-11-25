@@ -27,8 +27,7 @@ function App() {
 	})
 	// let storeState = store.getState(); 
 	// console.log('storeState from app.js:', storeState)
-
-
+	
 	const updateMsg = msg => {
 		return {
 			type: "UPDATE_MESSAGE",
